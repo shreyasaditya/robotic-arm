@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<link href="css/visualization.css" rel="stylesheet" type="text/css"></link>
+<link href="css/d3.parcoords.css" rel="stylesheet" type="text/css"></link>
+
+
+<!-- Leap Motion Script File -->
+<script src="js/leap-0.5.0.min.js"></script>
+
+
+<script language="javascript" type="text/javascript">
+
+var websocket;
+var connbtn;
+var disconnbtn;
+var rasid ;
+
+
+  function init()
+  {
+
+  	connbtn =document.getElementById("connectbtn");
+  	disconnbtn =document.getElementById("disconnectbtn");
+  	rasid = document.getElementById("ras");
+
+	//document.myform.disconnectButton.disabled = true;
+
+	disconnbtn.disabled = true;
+	rasid.innerHTML = "DisConnected";
+	rasid.style.color = "#cc3333";
+
+	document.getElementById("videoon").disabled = true;
+	doConnect();
+  }
+
+  function doConnect()
+  {
+    websocket = new WebSocket("ws://192.168.43.218:8082/");
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+  }
+
+  function onOpen(evt)
+  {
+	//document.myform.connectButton.disabled = true;
+	//document.myform.disconnectButton.disabled = false;
+	rasid.innerHTML = "Connected";
+	rasid.style.color = "#3cff00";
+  	connbtn.disabled = true;
+  	disconnbtn.disabled = false;
+  }
+
+  function onClose(evt)
+  {
+	//document.myform.connectButton.disabled = false;
+	//document.myform.disconnectButton.disabled = true;
+
+    rasid.innerHTML = "Disconnected";
+    rasid.style.color = "#cc3333";
+	connbtn.disabled = false;
+ 	disconnbtn.disabled = true;
+  }
+
+  function onMessage(evt)
+  {
+    console.log("response: " + evt.data + '\n');
+  }
+
+  function onError(evt)
+  {
+	websocket.close();
+
+	rasid.innerHTML = "Disconnected";
+	rasid.style.color = "#cc3333";
+	connbtn.disabled = false;
+ 	disconnbtn.disabled = true;
+	//document.myform.connectButton.disabled = false;
+	//document.myform.disconnectButton.disabled = true;
+
+  }
+
+  function doSend(message)
+  {
+    websocket.send(message);
+  }
+
+function writeToScreen(message)
+  {
+    //document.myform.outputtext.value += message
+	//document.myform.outputtext.scrollTop = document.myform.outputtext.scrollHeight;
+
+  }
+
+  window.addEventListener("load", init, false);
+
+
+   function doDisconnect() {
+		websocket.close();
+   }
+
+   function enableVideo()
+   {
+    document.getElementById("videofeed").style.visibility="visible";
+    document.getElementById("videoon").disabled = true;
+    document.getElementById("videooff").disabled = false;
+
+
+   }
+
+   function disableVideo()
+   {
+
+      document.getElementById("videofeed").style.visibility="hidden";
+     document.getElementById("videoon").disabled = false;
+    document.getElementById("videooff").disabled = true;
+   }
+
+
+</script>
+
+<!-- Pointables Script Files -->
+<script src="js/d3.v3.js"></script>
+<script src="js/d3.parcoords.js"></script>
+
+
+</head>
+<body>
+
+<h1>
+	GESTURE CONTROLLED<br />
+	ROBOTIC ARM
+</h1>
+<div id="intro">
+	Project by Shreyas Skandan and Shreyas Aditya, Computer Science and Engineering Dept. BMSCE. 
+</div>
+<br />
+<br />
+<br />
+<div id="frameData"></div>
+
+
+
+<table cellpadding="10" cellspacing="5">
+<tr >
+<td >
+<div id="note1">
+	Welcome to the Gesture Controlled Robotic Arm Interface. Make sure your Leap Motion is Connected before you begin.
+</div>
+</td>
+
+<td >
+<div id="note2">
+	 <span id="lms"></span> <br />
+	Robotic Arm Status : <span id="ras"></span> <br />
+	Ensure both devices are turned on before you begin. <br />	
+</div>
+</td>
+</tr>
+
+<tr>
+
+<td >
+<div id="connectionstatusid" >
+	Click below to establish connection with the Robotic Arm.
+<br />
+<br />
+<input id ="connectbtn" type="button" name=connectButton value="Connect" onClick="doConnect();">
+<input id ="disconnectbtn" type="button" name=disconnectButton value="Disconnect" onClick="doDisconnect();">
+
+</div>
+</td>
+
+
+<td  >
+<div id="pointables" class="parcoords "></div>
+</td>
+</tr>
+</table>
+<br />
+<br />
+
+
+<div id="camstatusid" >
+LIVE VIDEO STREAMING <br />
+
+<br />
+<br />
+<button id ="videoon" onClick="enableVideo();" >Enable </button>
+&nbsp;
+<button id ="videooff" onClick="disableVideo();">Disable </button>
+<br />
+<center><img alt="Not Available" id ="videofeed" src="http://192.168.43.218:8085/?action=stream" /></center>
+
+</div>
+
+<!-- Three Visualizer Script Files -->
+<script src="js/three.js"></script>
+<canvas id="myCanvas" >
+</canvas>
+
+<script src="js/script2.js"> </script>
+
+
+
+
+</body>
+</html>

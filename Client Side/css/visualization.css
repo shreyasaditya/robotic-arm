@@ -1,0 +1,117 @@
+
+
+ body {
+  background-image:url("bg11.jpg"); 
+  background-attachment:fixed;
+ 	color: rgb(255,255,255); 
+  font-size: 10px; 
+  font-family:  Helvetica, Arial, sans-serif;
+  opacity:0.85;
+}
+
+
+h1{
+  font-size: 35px; 
+  text-align: center; 
+  font-family: Helvetica,Arial;
+}
+
+#intro{
+  font-style:italic;
+  text-align:center;
+  font-size:10px;
+}
+
+table{
+   border-style: solid;
+   border-width: 1px;
+   border-color: rgb(255,255,255);
+   border-radius: 10px;
+   margin-left: 10%;
+   margin-right: 10%; 
+ } 
+
+ #note1 {
+	text-align: justify;
+	font-size: 15px; 
+  font-style:bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-style:solid;
+  border-width:1px;
+  border-radius: 10px;
+}
+
+#note2 {
+  border-style:solid;
+  border-width:1px;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+	font-size: 15px; 
+  font-style:bold;
+}
+
+#connectionstatusid {
+  text-align: center;
+	font-size: 15px; 
+  font-style:bold;
+  border-style:solid;
+  border-width:1px;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#camstatusid {
+	font-size: 15px; 
+  font-style:bold;
+	text-align:center;
+  border-style:solid;
+  border-radius:10px;
+  border-width: 1px;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+#pointables { 
+  border-color: black;
+  border-style: double;
+  border-width:3px;
+  border-radius: 5px;
+
+	width:400px;
+	height: 260px;
+
+}
+
+
+.parcoords text { font-size: 13px; opacity: 0.6; font-weight: bold; }
+.parcoords text.label { font-size: 10px; opacity: 1;}
+
+h2 { text-align: center; margin: 48px 0 6px; }
+
+/* Three Visualization */
+
+#myCanvas {
+	border-style:solid;
+	border-width:1px;
+  border-radius:10px;
+	background-color: rgba(0,0,0,0.3);
+	padding-left: 0;
+  padding-right: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  height: 390px;
+}
